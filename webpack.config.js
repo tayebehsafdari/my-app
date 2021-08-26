@@ -3,9 +3,12 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const {extendDefaultPlugins} = require('svgo');
 // const WorkboxPlugin = require('workbox-webpack-plugin');
 
 var config = {
+    context: __dirname,
     entry: './src/index.js',
     devtool: 'inline-source-map',
     devServer: {
@@ -36,6 +39,32 @@ var config = {
             classie: 'desandro-classie',
             Filterizr: 'filterizr',
             Typed: 'typed.js'
+        }),
+        new ImageMinimizerPlugin({
+            minimizerOptions: {
+                plugins: [
+                    ["gifsicle", {interlaced: true}],
+                    ["jpegtran", {progressive: true}],
+                    ["optipng", {optimizationLevel: 5}],
+                    [
+                        "svgo",
+                        {
+                            plugins: extendDefaultPlugins([
+                                {
+                                    name: "removeViewBox",
+                                    active: false
+                                },
+                                {
+                                    name: "addAttributesToSVGElement",
+                                    params: {
+                                        attributes: [{xmlns: "http://www.w3.org/2000/svg"}]
+                                    }
+                                }
+                            ])
+                        }
+                    ],
+                ]
+            }
         }),
         /* new WorkboxPlugin.GenerateSW({
             clientsClaim: true,
@@ -80,6 +109,10 @@ var config = {
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource'
+            },
+            {
+                test: /\.html$/i,
+                use: 'html-loader'
             },
             {
                 test: /\.m?js$/,

@@ -1,5 +1,5 @@
 import './assets/scss/style.scss';
-import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap.bundle';
 
 import './assets/images/afzoonravan02.jpg';
 import './assets/images/badr2402.jpg';
@@ -25,7 +25,6 @@ import './assets/images/vichyteen02.jpg';
 
 import './assets/js/modernizr-custom';
 import 'jquery';
-// import '@popperjs/core';
 import 'desandro-classie';
 import './assets/js/main';
 import 'typed.js';
