@@ -45,7 +45,6 @@
     "filterizr": "^2.2.4",
     "jquery": "^3.6.0",
     "jquery-animated-headlines": "^1.0.0",
-    "lodash": "^4.17.21",
     "magnific-popup": "^1.1.0",
     "typed.js": "^2.0.12"
   }
