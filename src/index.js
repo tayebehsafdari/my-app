@@ -9,9 +9,9 @@ import 'typed.js';
 import 'filterizr';
 import 'magnific-popup';
 import 'jquery-animated-headlines';
+import './assets/js/custom';
 import './assets/js/TweenMax.min';
 import './assets/js/DistortedButtonEffects';
-import './assets/js/custom';
 
 import './assets/images/afzoonravan02.jpg';
 import './assets/images/altontrading02.jpg';
