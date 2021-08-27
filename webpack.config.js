@@ -93,10 +93,10 @@ var config = {
             Filterizr: 'filterizr',
             Typed: 'typed.js'
         }),
-        /* new WorkboxPlugin.GenerateSW({
-            clientsClaim: true,
-            skipWaiting: true
-        }) */
+        // new WorkboxPlugin.GenerateSW({
+        //     clientsClaim: true,
+        //     skipWaiting: true
+        // })
     ],
     output: {
         filename: 'js/[name].bundle.js',
