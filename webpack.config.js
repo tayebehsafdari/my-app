@@ -41,11 +41,17 @@ var config = {
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: 'asset/resource'
+                type: 'asset/resource',
+                generator: {
+                    filename: 'images/[name][ext][query]'
+                }
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                type: 'asset/resource'
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext][query]'
+                }
             },
             {
                 test: /\.html$/i,
@@ -77,7 +83,7 @@ var config = {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: 'css/[name].css',
             chunkFilename: '[id].css'
         }),
         new webpack.ProvidePlugin({
@@ -93,7 +99,7 @@ var config = {
         }) */
     ],
     output: {
-        filename: '[name].bundle.js',
+        filename: 'js/[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
         publicPath: '/'
@@ -109,10 +115,12 @@ var config = {
 };
 
 module.exports = (env, argv) => {
-    if (argv.mode === 'development') {
+    const devMode = argv.mode !== 'production';
+
+    if (devMode) {
 
     }
-    if (argv.mode === 'production') {
+    if (!devMode) {
 
     }
     return config;
