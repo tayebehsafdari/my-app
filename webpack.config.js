@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 // const WorkboxPlugin = require('workbox-webpack-plugin');
 
 var config = {
@@ -43,14 +44,14 @@ var config = {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'images/[name][ext][query]'
+                    filename: 'static/images/[name][ext][query]'
                 }
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'fonts/[name][ext][query]'
+                    filename: 'static/fonts/[name][ext][query]'
                 }
             },
             {
@@ -71,19 +72,20 @@ var config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Output Management',
+            // title: 'Output Management',
             filename: 'index.html',
             template: 'public/index.html',
-            favicon: './public/favicon.ico',
+            inject: 'body',
+            // favicon: './public/favicon.ico',
             meta: {
                 keywords: 'Tayebeh Safdari, Senior Front-End Web Developer, Graphic Designer, UX/UI Designer, Web Designer, HTML, CSS, Bootstrap, Sass, jQuery, Webpack, React, JavaScript',
                 description: 'Senior Front-End Web Developer and UX/UI Designer',
                 author: 'Tayebeh Safdari',
-                viewport: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'
+                // viewport: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'
             }
         }),
         new MiniCssExtractPlugin({
-            filename: 'css/[name].css',
+            filename: 'static/css/[name].css',
             chunkFilename: '[id].css'
         }),
         new webpack.ProvidePlugin({
@@ -93,13 +95,14 @@ var config = {
             Filterizr: 'filterizr',
             Typed: 'typed.js'
         }),
+        new WebpackManifestPlugin(),
         // new WorkboxPlugin.GenerateSW({
         //     clientsClaim: true,
         //     skipWaiting: true
         // })
     ],
     output: {
-        filename: 'js/[name].bundle.js',
+        filename: 'static/js/[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
         publicPath: '/'
@@ -115,12 +118,13 @@ var config = {
 };
 
 module.exports = (env, argv) => {
-    const devMode = argv.mode !== 'production';
+    const isEnvDevelopment = argv.mode === 'development';
+    const isEnvProduction = argv.mode === 'production';
 
-    if (devMode) {
+    if (isEnvDevelopment) {
 
     }
-    if (!devMode) {
+    if (isEnvProduction) {
 
     }
     return config;

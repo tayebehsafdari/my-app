@@ -12,6 +12,7 @@ import 'jquery-animated-headlines';
 import './assets/js/custom';
 import './assets/js/TweenMax.min';
 import './assets/js/DistortedButtonEffects';
+// import './service-worker';
 
 import './assets/images/afzoonravan02.jpg';
 import './assets/images/altontrading02.jpg';
