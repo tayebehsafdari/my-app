@@ -5,6 +5,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 var config = {
     context: __dirname,
@@ -104,13 +105,26 @@ var config = {
         new WebpackManifestPlugin({
             fileName: 'asset-manifest.json'
         }),
-        new WorkboxPlugin.GenerateSW({
-            clientsClaim: true,
-            skipWaiting: true
+        // new WorkboxPlugin.GenerateSW({
+        //     clientsClaim: true,
+        //     skipWaiting: true
+        // }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'public', 'logo192.png'),
+                    to: path.resolve(__dirname, 'dist')
+                },
+                {
+                    from: path.resolve(__dirname, 'public', 'logo512.png'),
+                    to: path.resolve(__dirname, 'dist')
+                }
+            ]
         }),
-        // new WorkboxPlugin.InjectManifest({
-        //     swSrc: './src/service-worker.js'
-        // })
+        new WorkboxPlugin.InjectManifest({
+            swSrc: './src/service-worker.js',
+            // swDest: './service-worker.js'
+        })
     ],
     output: {
         filename: 'static/js/[name].bundle.js',

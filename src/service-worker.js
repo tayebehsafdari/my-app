@@ -1,3 +1,7 @@
+import {precacheAndRoute} from 'workbox-precaching';
+
+precacheAndRoute(self.__WB_MANIFEST);
+
 const OFFLINE_VERSION = 1;
 const cacheName = 'cache-v1';
 const precacheResources = [
