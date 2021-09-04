@@ -12,7 +12,6 @@ import 'jquery-animated-headlines';
 import './assets/js/custom';
 import './assets/js/TweenMax.min';
 import './assets/js/DistortedButtonEffects';
-// import './service-worker';
 
 import './assets/images/afzoonravan02.jpg';
 import './assets/images/altontrading02.jpg';
@@ -44,12 +43,13 @@ import './assets/images/vichyteen02.jpg';
 
 console.log("window: ", window);
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+window.addEventListener('load', async () => {
+    if ('serviceWorker' in navigator) {
+        try {
+            const registration = await navigator.serviceWorker.register('./service-worker.js');
             console.log('SW registered: ', registration);
-        }).catch(registrationError => {
+        } catch (registrationError) {
             console.log('SW registration failed: ', registrationError);
-        });
-    });
-}
+        }
+    }
+});

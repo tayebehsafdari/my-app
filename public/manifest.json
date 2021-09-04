@@ -4,8 +4,8 @@
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/x-icon",
+      "sizes": "64x64 32x32 24x24 16x16"
     },
     {
       "src": "logo192.png",
@@ -18,8 +18,12 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/?source=pwa",
+  "background_color": "#0293f5",
   "display": "standalone",
+  "scope": "/",
   "theme_color": "#ffc815",
-  "background_color": "#0293f5"
+  "shortcuts": [],
+  "description": "Senior Full Stack Developer",
+  "screenshots": []
 }

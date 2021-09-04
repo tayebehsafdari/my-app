@@ -4,13 +4,18 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
-// const WorkboxPlugin = require('workbox-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 var config = {
     context: __dirname,
     entry: './src/index.js',
     devtool: 'inline-source-map',
     devServer: {
+        index: true,
+        mimeTypes: {'text/html': ['phtml']},
+        publicPath: '/publicPathForDevServe',
+        serverSideRender: true,
+        writeToDisk: true,
         static: './dist',
         // hot: true
     },
@@ -95,17 +100,20 @@ var config = {
             Filterizr: 'filterizr',
             Typed: 'typed.js'
         }),
-        new WebpackManifestPlugin(),
-        // new WorkboxPlugin.GenerateSW({
-        //     clientsClaim: true,
-        //     skipWaiting: true
-        // })
+        new WebpackManifestPlugin({
+            fileName: 'asset-manifest.json'
+        }),
+        new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true
+        })
     ],
     output: {
         filename: 'static/js/[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
-        publicPath: '/'
+        publicPath: '/',
+        assetModuleFilename: '[name][ext]'
     },
     optimization: {
         minimizer: [
