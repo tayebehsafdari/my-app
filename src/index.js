@@ -10,8 +10,8 @@ import 'filterizr';
 import 'magnific-popup';
 import 'jquery-animated-headlines';
 import './assets/js/custom';
-import './assets/js/TweenMax.min';
-import './assets/js/DistortedButtonEffects';
+// import './assets/js/TweenMax.min';
+// import './assets/js/DistortedButtonEffects';
 
 import './assets/images/afzoonravan02.jpg';
 import './assets/images/altontrading02.jpg';
@@ -46,7 +46,7 @@ console.log("window: ", window);
 window.addEventListener('load', async () => {
     if ('serviceWorker' in navigator) {
         try {
-            const registration = await navigator.serviceWorker.register('./service-worker.js');
+            const registration = await navigator.serviceWorker.register('/service-worker.js');
             console.log('SW registered: ', registration);
         } catch (registrationError) {
             console.log('SW registration failed: ', registrationError);

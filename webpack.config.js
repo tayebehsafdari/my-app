@@ -11,11 +11,11 @@ var config = {
     entry: './src/index.js',
     devtool: 'inline-source-map',
     devServer: {
-        index: true,
-        mimeTypes: {'text/html': ['phtml']},
-        publicPath: '/publicPathForDevServe',
-        serverSideRender: true,
-        writeToDisk: true,
+        // index: true,
+        // mimeTypes: {'text/html': ['phtml']},
+        // publicPath: '/publicPathForDevServe',
+        // serverSideRender: true,
+        // writeToDisk: true,
         static: './dist',
         // hot: true
     },
@@ -69,7 +69,8 @@ var config = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: ['@babel/preset-env'],
+                        plugins: ['@babel/plugin-transform-runtime']
                     }
                 }
             },
@@ -106,7 +107,10 @@ var config = {
         new WorkboxPlugin.GenerateSW({
             clientsClaim: true,
             skipWaiting: true
-        })
+        }),
+        // new WorkboxPlugin.InjectManifest({
+        //     swSrc: './src/service-worker.js'
+        // })
     ],
     output: {
         filename: 'static/js/[name].bundle.js',
