@@ -3,9 +3,11 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
+// const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const {extendDefaultPlugins} = require('svgo');
 
 var config = {
     context: __dirname,
@@ -102,13 +104,13 @@ var config = {
             Filterizr: 'filterizr',
             Typed: 'typed.js'
         }),
-        new WebpackManifestPlugin({
+        /* new WebpackManifestPlugin({
             fileName: 'asset-manifest.json'
+        }), */
+        new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true
         }),
-        // new WorkboxPlugin.GenerateSW({
-        //     clientsClaim: true,
-        //     skipWaiting: true
-        // }),
         new CopyPlugin({
             patterns: [
                 {
@@ -121,10 +123,36 @@ var config = {
                 }
             ]
         }),
-        new WorkboxPlugin.InjectManifest({
+        /* new ImageMinimizerPlugin({
+            minimizerOptions: {
+                plugins: [
+                    ["gifsicle", {interlaced: true}],
+                    ["mozjpeg", {progressive: true}],
+                    ["pngquant", {optimizationLevel: 5}],
+                    [
+                        "svgo",
+                        {
+                            plugins: extendDefaultPlugins([
+                                {
+                                    name: "removeViewBox",
+                                    active: false
+                                },
+                                {
+                                    name: "addAttributesToSVGElement",
+                                    params: {
+                                        attributes: [{xmlns: "http://www.w3.org/2000/svg"}]
+                                    }
+                                }
+                            ])
+                        }
+                    ]
+                ]
+            }
+        }), */
+        /* new WorkboxPlugin.InjectManifest({
             swSrc: './src/service-worker.js',
-            // swDest: './service-worker.js'
-        })
+            swDest: './service-worker.js'
+        }) */
     ],
     output: {
         filename: 'static/js/[name].bundle.js',

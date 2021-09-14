@@ -42,14 +42,14 @@ import './assets/images/vata02.jpg';
 import './assets/images/vichyteen02.jpg';
 
 console.log("window: ", window);
-
-window.addEventListener('load', async () => {
-    if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async () => {
         try {
             const registration = await navigator.serviceWorker.register('/service-worker.js');
             console.log('SW registered: ', registration);
         } catch (registrationError) {
             console.log('SW registration failed: ', registrationError);
         }
-    }
-});
+
+    });
+}
