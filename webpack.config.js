@@ -107,10 +107,10 @@ var config = {
         /* new WebpackManifestPlugin({
             fileName: 'asset-manifest.json'
         }), */
-        new WorkboxPlugin.GenerateSW({
-            clientsClaim: true,
-            skipWaiting: true
-        }),
+        // new WorkboxPlugin.GenerateSW({
+        //     clientsClaim: true,
+        //     skipWaiting: true
+        // }),
         new CopyPlugin({
             patterns: [
                 {
@@ -149,10 +149,9 @@ var config = {
                 ]
             }
         }), */
-        /* new WorkboxPlugin.InjectManifest({
-            swSrc: './src/service-worker.js',
-            swDest: './service-worker.js'
-        }) */
+        new WorkboxPlugin.InjectManifest({
+            swSrc: './src/sw.js'
+        })
     ],
     output: {
         filename: 'static/js/[name].bundle.js',
