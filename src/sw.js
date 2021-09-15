@@ -27,7 +27,7 @@ self.addEventListener('fetch', event => {
 });
 
 // Cache Google Fonts
-registerRoute(
+/* registerRoute(
     ({url, sameOrigin, request, event}) => {
         console.log('url: ', url);
         console.log('sameOrigin: ', sameOrigin);
@@ -42,10 +42,10 @@ registerRoute(
             new ExpirationPlugin({maxEntries: 20})
         ]
     })
-);
+); */
 
 // Cache page navigations (html) with a Network First strategy
-registerRoute(
+/* registerRoute(
     ({request}) => request.mode === 'navigate',
     new NetworkFirst({
         cacheName: 'pages',
@@ -53,10 +53,10 @@ registerRoute(
             new CacheableResponsePlugin({statuses: [200]})
         ]
     })
-);
+); */
 
 // Cache CSS, JS, and Web Worker requests with a Stale While Revalidate strategy
-registerRoute(
+/* registerRoute(
     ({request}) =>
         request.destination === 'style' ||
         request.destination === 'script' ||
@@ -67,10 +67,10 @@ registerRoute(
             new CacheableResponsePlugin({statuses: [200]})
         ]
     })
-);
+); */
 
 // Cache Images
-registerRoute(
+/* registerRoute(
     ({request}) => request.destination === 'image',
     new CacheFirst({
         cacheName: 'images',
@@ -84,7 +84,7 @@ registerRoute(
             })
         ]
     })
-);
+); */
 
 setCatchHandler(async ({event}) => {
     if (event.request.destination === 'document') {

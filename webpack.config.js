@@ -93,6 +93,17 @@ var config = {
                 // viewport: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'
             }
         }),
+        new HtmlWebpackPlugin({
+            filename: 'offline.html',
+            template: 'src/offline.html',
+            inject: 'body',
+            meta: {
+                keywords: 'Tayebeh Safdari, Senior Front-End Web Developer, Graphic Designer, UX/UI Designer, Web Designer, HTML, CSS, Bootstrap, Sass, jQuery, Webpack, React, JavaScript',
+                description: 'Senior Front-End Web Developer and UX/UI Designer',
+                author: 'Tayebeh Safdari',
+                // viewport: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'
+            }
+        }),
         new MiniCssExtractPlugin({
             filename: 'static/css/[name].css',
             chunkFilename: '[id].css'
