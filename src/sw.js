@@ -4,7 +4,13 @@ import {precacheAndRoute} from 'workbox-precaching';
 import {ExpirationPlugin} from 'workbox-expiration';
 import {CacheableResponsePlugin} from 'workbox-cacheable-response';
 import {registerRoute} from 'workbox-routing';
-import {StaleWhileRevalidate, NetworkFirst, CacheFirst, NetworkOnly, CacheOnly} from 'workbox-strategies';
+import {
+    StaleWhileRevalidate,
+    NetworkFirst,
+    CacheFirst,
+    NetworkOnly,
+    CacheOnly
+} from 'workbox-strategies';
 
 precacheAndRoute(self.__WB_MANIFEST);
 
@@ -38,11 +44,29 @@ registerRoute(
     })
 );
 
-// Cache JavaScript and CSS
+// Cache page navigations (html) with a Network First strategy
 registerRoute(
-    ({request}) => request.destination === 'script' ||
-        request.destination === 'style',
-    new StaleWhileRevalidate()
+    ({request}) => request.mode === 'navigate',
+    new NetworkFirst({
+        cacheName: 'pages',
+        plugins: [
+            new CacheableResponsePlugin({statuses: [200]})
+        ]
+    })
+);
+
+// Cache CSS, JS, and Web Worker requests with a Stale While Revalidate strategy
+registerRoute(
+    ({request}) =>
+        request.destination === 'style' ||
+        request.destination === 'script' ||
+        request.destination === 'worker',
+    new StaleWhileRevalidate({
+        cacheName: 'assets',
+        plugins: [
+            new CacheableResponsePlugin({statuses: [200]})
+        ]
+    })
 );
 
 // Cache Images
