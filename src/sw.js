@@ -1,9 +1,9 @@
 console.log('self: ', self);
 
-import {precacheAndRoute} from 'workbox-precaching';
+import {precacheAndRoute, matchPrecache} from 'workbox-precaching';
 import {ExpirationPlugin} from 'workbox-expiration';
 import {CacheableResponsePlugin} from 'workbox-cacheable-response';
-import {registerRoute} from 'workbox-routing';
+import {registerRoute, setCatchHandler} from 'workbox-routing';
 import {
     StaleWhileRevalidate,
     NetworkFirst,
@@ -85,3 +85,10 @@ registerRoute(
         ]
     })
 );
+
+setCatchHandler(async ({event}) => {
+    if (event.request.destination === 'document') {
+        return matchPrecache('/offline.html');
+    }
+    return Response.error();
+});
