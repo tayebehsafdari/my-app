@@ -111,6 +111,9 @@ var config = {
         //     clientsClaim: true,
         //     skipWaiting: true
         // }),
+        new WorkboxPlugin.InjectManifest({
+            swSrc: './src/sw.js'
+        }),
         new CopyPlugin({
             patterns: [
                 {
@@ -148,10 +151,7 @@ var config = {
                     ]
                 ]
             }
-        }), */
-        new WorkboxPlugin.InjectManifest({
-            swSrc: './src/sw.js'
-        })
+        }) */
     ],
     output: {
         filename: 'static/js/[name].bundle.js',

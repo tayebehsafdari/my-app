@@ -2,8 +2,10 @@ console.log("self: ", self);
 
 import {precacheAndRoute} from 'workbox-precaching';
 import {ExpirationPlugin} from 'workbox-expiration';
+import {CacheableResponsePlugin} from 'workbox-cacheable-response';
 import {registerRoute} from 'workbox-routing';
-import {StaleWhileRevalidate} from 'workbox-strategies';
+import {StaleWhileRevalidate, CacheFirst} from 'workbox-strategies';
+
 
 precacheAndRoute(self.__WB_MANIFEST);
 
@@ -30,6 +32,23 @@ registerRoute(
     ({request}) => request.destination === 'script' ||
         request.destination === 'style',
     new StaleWhileRevalidate()
+);
+
+// Cache Images
+registerRoute(
+    ({request}) => request.destination === 'image',
+    new CacheFirst({
+        cacheName: 'images',
+        plugins: [
+            new CacheableResponsePlugin({
+                statuses: [0, 200]
+            }),
+            new ExpirationPlugin({
+                maxEntries: 60,
+                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+            })
+        ]
+    })
 );
 
 
