@@ -53,3 +53,21 @@ if ('serviceWorker' in navigator) {
 
     });
 }
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // showInstallPromotion();
+    console.log("beforeinstallprompt: ", e);
+});
+
+document.querySelector('#component-1').addEventListener('click', async (e) => {
+    e.preventDefault();
+    // hideInstallPromotion();
+    deferredPrompt.prompt();
+    const {outcome} = await deferredPrompt.userChoice;
+    console.log("outcome: ", e, outcome);
+    deferredPrompt = null;
+});
