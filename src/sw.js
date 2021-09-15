@@ -1,12 +1,25 @@
 console.log("self: ", self);
 
 import {precacheAndRoute} from 'workbox-precaching';
+import {ExpirationPlugin} from 'workbox-expiration';
+import {registerRoute} from 'workbox-routing';
+import {StaleWhileRevalidate} from 'workbox-strategies';
 
 precacheAndRoute(self.__WB_MANIFEST);
 
-
-
-
+registerRoute(
+    ({url, sameOrigin, request, event}) => {
+        console.log("url: ", url);
+        console.log("sameOrigin: ", sameOrigin);
+        console.log("request: ", request);
+        console.log("event: ", event);
+    },
+    new StaleWhileRevalidate({
+        cacheName: 'google-fonts',
+        plugins: [
+            new ExpirationPlugin({maxEntries: 20})
+        ]
+    }));
 
 
 // const OFFLINE_VERSION = 1;
