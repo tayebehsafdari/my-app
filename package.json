@@ -10,7 +10,7 @@
     "watch": "webpack --watch",
     "start": "webpack serve --open --mode=development",
     "server": "node server.js",
-    "http-server": "http-server dist"
+    "http-server": "http-server dist -p 8000 -c-1"
   },
   "keywords": [],
   "author": "",

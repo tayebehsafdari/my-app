@@ -13,6 +13,7 @@ registerRoute(
         console.log("sameOrigin: ", sameOrigin);
         console.log("request: ", request);
         console.log("event: ", event);
+        return url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com';
     },
     new StaleWhileRevalidate({
         cacheName: 'google-fonts',

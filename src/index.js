@@ -59,8 +59,6 @@ let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    // showInstallPromotion();
-    console.log("beforeinstallprompt: ", e);
 });
 
 document.querySelector('#component-1').addEventListener('click', async (e) => {
@@ -68,6 +66,10 @@ document.querySelector('#component-1').addEventListener('click', async (e) => {
     // hideInstallPromotion();
     deferredPrompt.prompt();
     const {outcome} = await deferredPrompt.userChoice;
-    console.log("outcome: ", e, outcome);
+    if (outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt');
+    } else if (outcome === 'dismissed') {
+        console.log('User dismissed the A2HS prompt');
+    }
     deferredPrompt = null;
 });
