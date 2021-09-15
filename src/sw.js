@@ -7,20 +7,30 @@ import {StaleWhileRevalidate} from 'workbox-strategies';
 
 precacheAndRoute(self.__WB_MANIFEST);
 
+// Cache Google Fonts
 registerRoute(
     ({url, sameOrigin, request, event}) => {
         console.log("url: ", url);
         console.log("sameOrigin: ", sameOrigin);
         console.log("request: ", request);
         console.log("event: ", event);
-        return url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com';
+        return url.origin === 'https://fonts.googleapis.com' ||
+            url.origin === 'https://fonts.gstatic.com';
     },
     new StaleWhileRevalidate({
         cacheName: 'google-fonts',
         plugins: [
             new ExpirationPlugin({maxEntries: 20})
         ]
-    }));
+    })
+);
+
+// Cache JavaScript and CSS
+registerRoute(
+    ({request}) => request.destination === 'script' ||
+        request.destination === 'style',
+    new StaleWhileRevalidate()
+);
 
 
 // const OFFLINE_VERSION = 1;
