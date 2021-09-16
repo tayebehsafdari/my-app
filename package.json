@@ -59,6 +59,7 @@
     "jquery": "^3.6.0",
     "jquery-animated-headlines": "^1.0.0",
     "magnific-popup": "^1.1.0",
-    "typed.js": "^2.0.12"
+    "typed.js": "^2.0.12",
+    "web-push": "^3.4.5"
   }
 }

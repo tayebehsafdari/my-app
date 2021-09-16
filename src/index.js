@@ -73,3 +73,36 @@ document.querySelector('#component-1').addEventListener('click', async (e) => {
     }
     deferredPrompt = null;
 });
+
+
+if ('Notification' in window && navigator.serviceWorker) {
+    Notification.requestPermission(function (result) {
+        if (result === 'denied') {
+            console.log('Permission wasn\'t granted. Allow a retry.');
+            return;
+        } else if (result === 'prompt') {
+            console.log('The permission request was dismissed.');
+            return;
+        }
+        displayNotification();
+    });
+
+    function displayNotification() {
+        if (Notification.permission === 'granted') {
+            navigator.serviceWorker.getRegistration().then(reg => {
+                let options = {
+                    body: 'Would you like to receive notifications from this site?',
+                    icon: 'logo192.png',
+                    vibrate: [100, 50, 100],
+                    data: {
+                        dateOfArrival: Date.now(),
+                        primaryKey: 1
+                    }
+                };
+                reg.showNotification('https://www.tayebehsafdari.com/', options);
+            });
+        }
+    }
+}
+
+

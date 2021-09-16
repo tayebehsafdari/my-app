@@ -4,6 +4,7 @@ import {precacheAndRoute, matchPrecache} from 'workbox-precaching';
 import {ExpirationPlugin} from 'workbox-expiration';
 import {CacheableResponsePlugin} from 'workbox-cacheable-response';
 import {registerRoute, setCatchHandler} from 'workbox-routing';
+import {BackgroundSyncPlugin, Queue} from 'workbox-background-sync';
 import {
     StaleWhileRevalidate,
     NetworkFirst,
@@ -13,18 +14,6 @@ import {
 } from 'workbox-strategies';
 
 precacheAndRoute(self.__WB_MANIFEST);
-
-self.addEventListener('install', event => {
-    console.log('install event', event);
-});
-
-self.addEventListener('activate', event => {
-    console.log('activate event', event);
-});
-
-self.addEventListener('fetch', event => {
-    console.log('fetch event', event);
-});
 
 // Cache Google Fonts
 /* registerRoute(
@@ -91,4 +80,48 @@ setCatchHandler(async ({event}) => {
         return matchPrecache('/offline.html');
     }
     return Response.error();
+});
+
+/* const bgSyncPlugin = new BackgroundSyncPlugin('myQueueName', {
+    maxRetentionTime: 24 * 60 // Retry for max of 24 Hours (specified in minutes)
+});
+
+registerRoute(
+    /\/api\/.*\/*.json/,
+    new NetworkOnly({
+        plugins: [bgSyncPlugin]
+    }),
+    'POST'
+); */
+
+const queue = new Queue('myQueueName');
+
+self.addEventListener('fetch', event => {
+    console.log('fetch event', event);
+    if (event.request.method !== 'POST') {
+        return;
+    }
+    const bgSyncLogic = async () => {
+        try {
+            const response = await fetch(event.request.clone());
+            return response;
+        } catch (error) {
+            await queue.pushRequest({request: event.request});
+            return error;
+        }
+    };
+    event.respondWith(bgSyncLogic());
+});
+
+
+self.addEventListener('install', event => {
+    console.log('install event', event);
+});
+
+self.addEventListener('activate', event => {
+    console.log('activate event', event);
+});
+
+self.addEventListener('sync', event => {
+    console.log('sync event', event);
 });
