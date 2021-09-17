@@ -115,9 +115,15 @@ self.addEventListener('fetch', event => {
 
 self.addEventListener('notificationclick', event => {
     const notification = event.notification;
-    const primaryKey = event.data.primaryKey;
+    const primaryKey = notification.data.primaryKey;
     const action = event.action;
     console.log('notificationclick event', notification, primaryKey, action, clients);
+    if (action === 'close') {
+        notification.close();
+    } else {
+        clients.openWindow('https://www.tayebehsafdari.com/#portfolio');
+        notification.close();
+    }
 });
 
 self.addEventListener('push', event => {
