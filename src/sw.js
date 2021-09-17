@@ -114,7 +114,10 @@ self.addEventListener('fetch', event => {
 });
 
 self.addEventListener('notificationclick', event => {
-    console.log('notificationclick event', event);
+    const notification = event.notification;
+    const primaryKey = event.data.primaryKey;
+    const action = event.action;
+    console.log('notificationclick event', notification, primaryKey, action, clients);
 });
 
 self.addEventListener('push', event => {
