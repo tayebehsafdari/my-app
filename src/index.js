@@ -75,20 +75,21 @@ document.querySelector('#component-1').addEventListener('click', async (e) => {
 });
 
 function displayNotification() {
-    if (Notification.permission === 'granted') {
-        navigator.serviceWorker.getRegistration().then(reg => {
-            const options = {
-                body: 'Would you like to receive notifications from this site?',
-                icon: 'logo192.png',
-                vibrate: [100, 50, 100],
-                data: {
-                    dateOfArrival: Date.now(),
-                    primaryKey: 1
-                }
-            };
-            reg.showNotification('https://www.tayebehsafdari.com/', options);
-        });
-    }
+    navigator.serviceWorker.getRegistration().then(reg => {
+        const options = {
+            body: 'Has added a new project to her site, would you like to see it?',
+            icon: '/logo192.png',
+            vibrate: [100, 50, 100],
+            data: {
+                dateOfArrival: Date.now(),
+                primaryKey: 1
+            },
+            actions: [
+                {action: 'close', title: 'Close notification'}
+            ]
+        };
+        reg.showNotification('Tayebeh Safdari', options);
+    });
 }
 
 if ('Notification' in window && navigator.serviceWorker) {
