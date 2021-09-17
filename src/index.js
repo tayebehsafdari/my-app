@@ -74,32 +74,31 @@ document.querySelector('#component-1').addEventListener('click', async (e) => {
     deferredPrompt = null;
 });
 
-function displayNotification() {
-    navigator.serviceWorker.getRegistration().then(reg => {
-        const options = {
-            body: 'Has added a new project to her site, would you like to see it?',
-            icon: '/logo192.png',
-            badge: '/logo192.png',
-            image: '/static/images/cr7shop01.jpg',
-            renotify: true,
-            tag: 'portfolio',
-            vibrate: [100, 50, 100],
-            data: {
-                dateOfArrival: Date.now(),
-                primaryKey: 1
-            },
-            actions: [
-                {action: 'close', title: 'Close notification'}
-            ]
-        };
-        reg.showNotification('Tayebeh Safdari', options);
-    });
+async function displayNotification() {
+    const reg = await navigator.serviceWorker.getRegistration();
+    const options = {
+        body: 'Has added a new project to her site, would you like to see it?',
+        icon: '/logo192.png',
+        badge: '/logo192.png',
+        image: '/static/images/cr7shop01.jpg',
+        renotify: true,
+        tag: 'portfolio',
+        vibrate: [100, 50, 100],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+        },
+        actions: [
+            {action: 'close', title: 'Close notification'}
+        ]
+    };
+    reg.showNotification('Tayebeh Safdari', options);
 }
 
 if ('Notification' in window && navigator.serviceWorker) {
-    Notification.requestPermission(function (result) {
+    Notification.requestPermission(async (result) => {
         if (result === 'granted') {
-            displayNotification();
+            await displayNotification();
         }
     });
 }

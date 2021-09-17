@@ -113,6 +113,13 @@ self.addEventListener('fetch', event => {
     event.respondWith(bgSyncLogic());
 });
 
+self.addEventListener('notificationclick', event => {
+    console.log('notificationclick event', event);
+});
+
+self.addEventListener('push', event => {
+    console.log('push event', event);
+});
 
 self.addEventListener('install', event => {
     console.log('install event', event);
