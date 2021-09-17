@@ -79,6 +79,10 @@ function displayNotification() {
         const options = {
             body: 'Has added a new project to her site, would you like to see it?',
             icon: '/logo192.png',
+            badge: '/logo192.png',
+            image: '/static/images/cr7shop01.jpg',
+            renotify: true,
+            tag: 'portfolio',
             vibrate: [100, 50, 100],
             data: {
                 dateOfArrival: Date.now(),
