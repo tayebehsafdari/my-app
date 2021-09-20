@@ -12,6 +12,9 @@ import {
     NetworkOnly,
     CacheOnly
 } from 'workbox-strategies';
+import * as googleAnalytics from 'workbox-google-analytics';
+
+googleAnalytics.initialize();
 
 precacheAndRoute(self.__WB_MANIFEST);
 
