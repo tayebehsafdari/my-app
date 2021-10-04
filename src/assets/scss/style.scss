@@ -1704,7 +1704,7 @@ body {
         border: 1px solid transparent;
         @include border-radius(50%);
         color: tab-button-colors($key: "yellow");
-        margin-right: 0;
+        margin-right: 5px;
         padding: 0;
         height: 9px;
         width: 9px;
