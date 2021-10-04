@@ -19,7 +19,7 @@
     "@babel/core": "^7.15.0",
     "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
-    "autoprefixer": "^10.3.2",
+    "autoprefixer": "^10.3.6",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
@@ -53,12 +53,15 @@
   "dependencies": {
     "@babel/runtime": "^7.15.4",
     "@fortawesome/fontawesome-free": "^5.15.4",
+    "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.1.1",
     "desandro-classie": "^1.0.1",
     "filterizr": "^2.2.4",
     "jquery": "^3.6.0",
     "jquery-animated-headlines": "^1.0.0",
     "magnific-popup": "^1.1.0",
+    "postcss-cli": "^9.0.1",
+    "rfs": "^9.0.6",
     "typed.js": "^2.0.12",
     "web-push": "^3.4.5"
   }

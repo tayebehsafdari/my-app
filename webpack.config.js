@@ -27,26 +27,33 @@ var config = {
         rules: [
             {
                 test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
+            {
+                test: /\.s[ac]ss$/i,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
                     {
                         loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
-                                plugins: () => {
+                                plugins: function () {
                                     return [
                                         require('autoprefixer')
                                     ];
                                 }
                             }
                         }
+                    },
+                    {
+                        loader: 'sass-loader'
                     }
                 ]
-            },
-            {
-                test: /\.s[ac]ss$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,

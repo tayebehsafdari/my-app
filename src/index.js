@@ -1,7 +1,7 @@
 import './assets/scss/style.scss';
 
 import 'jquery';
-import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap';
 import './assets/js/modernizr-custom';
 import 'desandro-classie';
 import './assets/js/main';
