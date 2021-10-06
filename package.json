@@ -54,7 +54,7 @@
     "@babel/runtime": "^7.15.4",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@popperjs/core": "^2.10.2",
-    "bootstrap": "^5.1.1",
+    "bootstrap": "^5.1.2",
     "desandro-classie": "^1.0.1",
     "filterizr": "^2.2.4",
     "jquery": "^3.6.0",

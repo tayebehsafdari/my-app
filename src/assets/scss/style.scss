@@ -1636,6 +1636,34 @@ body {
       text-align: justify;
       color: rgba($black, .5);
     }
+
+    ul {
+      margin-top: 12px;
+
+      li {
+        &::before {
+          content: "";
+          background-color: $mikado-yellow;
+          @include border-radius(50%);
+          display: block;
+          position: absolute;
+          top: 8px;
+          left: 0;
+          height: 6px;
+          width: 6px;
+        }
+
+        position: relative;
+        color: rgba($black, .5);
+        @include font-size(12px);
+        padding-left: 16px;
+        margin-bottom: 6px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 
   .skill-item {

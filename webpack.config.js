@@ -13,48 +13,9 @@ var config = {
     context: __dirname,
     entry: './src/index.js',
     devtool: 'inline-source-map',
-    devServer: {
-        // index: true,
-        // mimeTypes: {'text/html': ['phtml']},
-        // publicPath: '/publicPathForDevServe',
-        // serverSideRender: true,
-        // writeToDisk: true,
-        static: './dist',
-        // hot: true
-    },
     stats: 'errors-only',
     module: {
         rules: [
-            {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
-            },
-            {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            postcssOptions: {
-                                plugins: function () {
-                                    return [
-                                        require('autoprefixer')
-                                    ];
-                                }
-                            }
-                        }
-                    },
-                    {
-                        loader: 'sass-loader'
-                    }
-                ]
-            },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
@@ -111,10 +72,6 @@ var config = {
                 // viewport: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'
             }
         }),
-        new MiniCssExtractPlugin({
-            filename: 'static/css/[name].css',
-            chunkFilename: '[id].css'
-        }),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
@@ -144,6 +101,7 @@ var config = {
                 }
             ]
         }),
+        new webpack.ProgressPlugin(),
         /* new ImageMinimizerPlugin({
             minimizerOptions: {
                 plugins: [
@@ -172,7 +130,6 @@ var config = {
         }) */
     ],
     output: {
-        filename: 'static/js/[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
         publicPath: '/',
@@ -193,10 +150,61 @@ module.exports = (env, argv) => {
     const isEnvProduction = argv.mode === 'production';
 
     if (isEnvDevelopment) {
-
+        config.output.filename = 'static/js/[name].bundle.js';
+        config.devServer = {
+            // index: true,
+            // mimeTypes: {'text/html': ['phtml']},
+            // publicPath: '/publicPathForDevServe',
+            // serverSideRender: true,
+            // writeToDisk: true,
+            static: './dist',
+            // hot: true
+        };
     }
     if (isEnvProduction) {
-
+        config.output.filename = 'static/js/[name].bundle.js';
+        config.plugins.push(
+            new MiniCssExtractPlugin({
+                filename: 'static/css/[name].css',
+                chunkFilename: '[id].css'
+            })
+        );
     }
+    config.module.rules.push(...[
+        {
+            test: /\.css$/i,
+            use: [isEnvDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader']
+        },
+        {
+            test: /\.s[ac]ss$/i,
+            use: [
+                isEnvDevelopment
+                    ? {
+                        loader: 'style-loader'
+                    }
+                    : {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                {
+                    loader: 'css-loader'
+                },
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        postcssOptions: {
+                            plugins: function () {
+                                return [
+                                    require('autoprefixer')
+                                ];
+                            }
+                        }
+                    }
+                },
+                {
+                    loader: 'sass-loader'
+                }
+            ]
+        }
+    ]);
     return config;
 };
