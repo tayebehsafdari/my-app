@@ -21,7 +21,7 @@ import './assets/images/bonmano02.jpg';
 import './assets/images/bsi02.jpg';
 import './assets/images/caspian02.jpg';
 import './assets/images/cr7shop02.jpg';
-import './assets/images/curriculum-vitae.jpg';
+import './assets/images/curriculum-vitae.pdf';
 import './assets/images/fabrioni02.jpg';
 import './assets/images/fastclick02.jpg';
 import './assets/images/gtc102.jpg';

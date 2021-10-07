@@ -31,6 +31,13 @@ var config = {
                 }
             },
             {
+                test: /\.(pdf)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'static/images/[name][ext][query]'
+                }
+            },
+            {
                 test: /\.html$/i,
                 use: 'html-loader'
             },
