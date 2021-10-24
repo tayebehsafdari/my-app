@@ -1,7 +1,7 @@
 console.log('self: ', self);
-workbox.setConfig({
+/* workbox.setConfig({
     debug: true
-});
+}); */
 import {setCacheNameDetails} from 'workbox-core';
 
 setCacheNameDetails({
