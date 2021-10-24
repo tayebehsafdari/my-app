@@ -1,5 +1,13 @@
 console.log('self: ', self);
+import {setCacheNameDetails} from 'workbox-core';
 
+setCacheNameDetails({
+    prefix: 'my-app',
+    suffix: 'v1',
+    precache: 'custom-precache-name',
+    runtime: 'custom-runtime-name',
+    googleAnalytics: 'custom-google-analytics-name'
+});
 import {precacheAndRoute, matchPrecache} from 'workbox-precaching';
 import {ExpirationPlugin} from 'workbox-expiration';
 import {CacheableResponsePlugin} from 'workbox-cacheable-response';
